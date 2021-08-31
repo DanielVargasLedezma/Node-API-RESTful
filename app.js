@@ -6,14 +6,11 @@ const { restart } = require("nodemon");
 
 var app = express();
 
+var article_routes = require('./routes/article');
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.get("/articles", (req, res) => {
-
-    return res.status(200).send({
-        
-    });
-});
+app.use('/api', article_routes);
 
 module.exports = app;
