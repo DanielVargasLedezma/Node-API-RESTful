@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "API RESTful for Vue.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielVargasLedezma/Node-API-RESTful-with-JS.git"
+  },
+  "author": "Dan_VL",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DanielVargasLedezma/Node-API-RESTful-with-JS/issues"
+  },
+  "homepage": "https://github.com/DanielVargasLedezma/Node-API-RESTful-with-JS#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
