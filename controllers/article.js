@@ -207,8 +207,12 @@ var controller = {
 
     if (
       file_extension != "png" &&
+      file_extension != "PNG" &&
       file_extension != "jpg" &&
+      file_extension != "JPG" &&
       file_extension != "jpeg" &&
+      file_extension != "JPEG" &&
+      file_extension != "GIF" &&
       file_extension != "gif"
     ) {
       fs.unlink(file_path, (err) => {
@@ -261,6 +265,51 @@ var controller = {
         }
       );
     }
+  },
+  getImage: (req, res) => {
+    var file = req.params.image;
+    var file_path = "./upload/articles/" + file;
+
+    if (fs.existsSync(file_path)) {
+      return res.sendFile(path.resolve(file_path));
+    } else {
+      return res.status(404).send({
+        status: "error",
+        message: "La imagen no existe",
+      });
+    }
+  },
+  search: (req, res) => {
+    var search_string = req.params.search;
+    
+    Article.find({
+      "$or": [
+        { "title": { "$regex": search_string, "$options": "i" } },
+        { "content": { "$regex": search_string, "$options": "i" } },
+      ]})
+      .sort([["date", "descending"]])
+      .exec((err, articles) => {
+        
+        if(err){
+          return res.status(500).send({
+            status: "error",
+            message: "Ocurrio un error inesperado",
+          }); 
+        }
+
+        if(!articles || articles.length <= 0){
+          return res.status(404).send({
+            status: "error",
+            message: "No se encontro nada con lo que se esta buscando",
+          });  
+        }
+        
+        return res.status(200).send({
+          status: "success",
+          articles
+        });
+
+    });
   },
 };
 
